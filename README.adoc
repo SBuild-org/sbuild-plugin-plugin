@@ -24,6 +24,8 @@ All configurable properties are documented via ScalaDoc. See file SBuildPlugin.
 
 == Usage Example
 
+To build an imaginary `ExamplePlugin` in package `org.sbuild.plugins.example` in version `0.1.0` you can use the following SBuild buildfile. Scala source files are assumed to be in `src/main/scala` directory.
+
 [source,scala]
 ----
 import de.tototec.sbuild._
@@ -32,9 +34,7 @@ import de.tototec.sbuild._
 @classpath("org.sbuild.plugins.sbuildplugin.jar")
 class SBuild(implicit _project: Project) {
 
-  import org.sbuild.plugins.sbuildplugin._
-
-  Plugin[SBuildPlugin] configure { c =>
+  Plugin[org.sbuild.plugins.sbuild.plugin.SBuildPlugin] configure { c =>
     // the version of SBuild this plugin is compatible to
     c.sbuildVersion = "0.7.0"
     
@@ -60,3 +60,7 @@ jar
 ----
 
 To build to plugin use the `jar` target, which is an alias to the output jar (`target/org.sbuild.plugins.example-0.1.0.jar`).
+
+== Future development
+
+The SBuild plugin ecosystem just was born. If there are stable plugin for the Scala compiler, packaging, testing, etc, this plugin will start to use these instead of defining all these task on its own.
