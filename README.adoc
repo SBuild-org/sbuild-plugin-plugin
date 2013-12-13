@@ -63,4 +63,4 @@ To build to plugin use the `jar` target, which is an alias to the output jar (`t
 
 == Future development
 
-The SBuild plugin ecosystem just was born. If there are stable plugin for the Scala compiler, packaging, testing, etc, this plugin will start to use these instead of defining all these task on its own.
+The SBuild plugin ecosystem just was born. If there are in the near future stable plugin for tasks like compiling, packaging, testing, etc, this plugin will start to use these instead of defining all these task on its own.
