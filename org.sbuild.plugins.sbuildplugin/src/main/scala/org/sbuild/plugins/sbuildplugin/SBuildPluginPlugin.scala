@@ -1,23 +1,8 @@
 package org.sbuild.plugins.sbuildplugin
 
-import de.tototec.sbuild.TargetRefs
-import de.tototec.sbuild.ProjectConfigurationException
-import de.tototec.sbuild.Project
-import de.tototec.sbuild.Plugin
+import de.tototec.sbuild._
 import de.tototec.sbuild.ant.AntFileSet
 import de.tototec.sbuild.ant.tasks.AntJar
-
-class SBuildPlugin(val name: String)(implicit project: Project) {
-  var packageName: Option[String] = None
-  var pluginClass: String = _
-  var pluginFactoryClass: String = _
-  var pluginVersion: String = "0.0.0"
-  var sbuildVersion: String = _
-  // TODO: support raw deps
-  var deps: Seq[String] = Seq()
-  var testDeps: Option[TargetRefs] = None
-  var exportedPackages: Option[Seq[String]] = None
-}
 
 class SBuildPluginPlugin(implicit project: Project) extends Plugin[SBuildPlugin] {
   override def create(name: String): SBuildPlugin = new SBuildPlugin(name)
