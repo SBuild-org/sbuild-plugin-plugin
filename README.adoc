@@ -17,3 +17,46 @@ sbuild all
 ----
 
 You will find the built jar in the directory `org.sbuild.plugins.sbuildplugin/target`.
+
+== Configuration
+
+All configurable properties are documented via ScalaDoc. See file SBuildPlugin.
+
+== Usage Example
+
+[source,scala]
+----
+import de.tototec.sbuild._
+
+@version("0.7.0")
+@classpath("org.sbuild.plugins.sbuildplugin.jar")
+class SBuild(implicit _project: Project) {
+
+  import org.sbuild.plugins.sbuildplugin._
+
+  Plugin[SBuildPlugin] configure { c =>
+    // the version of SBuild this plugin is compatible to
+    c.sbuildVersion = "0.7.0"
+    
+    // the plugin API
+    c.pluginClass = "org.sbuild.plugins.example.Example"
+    // the version of this plugin
+    c.pluginVersion = "0.1.0"
+    // the plugin factory class, which extends trait de.tototec.sbuild.Plugin
+    c.pluginFactoryClass = "org.sbuild.plugins.example.ExamplePlugin"
+  }
+
+}
+----
+
+Thats all to compile and package a plugin which has no additional dependencies.
+
+----
+bash$ sbuild -l
+/tmp/exampleproject/target/org.sbuild.plugins.example-0.1.0.jar 
+clean 
+compile 
+jar
+----
+
+To build to plugin use the `jar` target, which is an alias to the output jar (`target/org.sbuild.plugins.example-0.1.0.jar`).
