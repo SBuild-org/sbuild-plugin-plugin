@@ -21,7 +21,7 @@ class SBuildPluginPlugin(implicit project: Project) extends Plugin[SBuildPlugin]
         val compileCp =
           VersionedArtifacts.scalaClasspath(plugin.sbuildVersion).map(TargetRef(_)) ~
             VersionedArtifacts.sbuildClasspath(plugin.sbuildVersion).map(TargetRef(_)) ~
-            plugin.deps.map(TargetRef(_))
+            plugin.deps.map { case d if d.startsWith("raw:") => d.substring(4) case d => d }.map(TargetRef(_))
         val sources = "scan:src/main/scala;regex=.*\\.scala"
         val resourcesDir = "src/main/resources"
         val resources = s"scan:$resourcesDir"
@@ -51,7 +51,8 @@ class SBuildPluginPlugin(implicit project: Project) extends Plugin[SBuildPlugin]
           classesDir.listFilesRecursive.map(f => ctx attachFile f)
         }
 
-        // TODO: A target that detects the plugin class by analyzing the factory
+        // TODO: detect the plugin class by analyzing the factory if not given
+        
         val jarT = Target(jar) dependsOn compileT ~ resources exec { ctx: TargetContext =>
           AntJar(
             destFile = ctx.targetFile.get,
@@ -71,12 +72,12 @@ class SBuildPluginPlugin(implicit project: Project) extends Plugin[SBuildPlugin]
 
         Target("phony:jar") dependsOn jarT
 
-        // TODO: source jar target
+      // TODO: source jar target
 
-        plugin.testDeps map { testDeps =>
-          // Compile test target
-          // run test target
-        }
+      //        plugin.testDeps map { testDeps =>
+      //          // Compile test target
+      //          // run test target
+      //        }
     }
 
 }
