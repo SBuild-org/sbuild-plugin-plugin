@@ -1,0 +1,22 @@
+= SBuild Adept Plugin
+
+This SBuild plugin provides a Plugin to build SBuild Plugin
+
+WARNING: The Adept Plugin is in early development state. Its API may change radically.
+
+== Installation
+
+There is currently no release of this plugin. You need to build it by yourself.
+
+== Building from Source
+
+You need a recent version of SBuild.
+
+----
+git clone https://github.com/lefou/sbuild-sbuild-plugin.git
+cd sbuild-sbuild-plugin/org.sbuild.plugins.sbuildplugin
+sbuild all
+----
+
+You will find the built jar in the directory `org.sbuild.plugins.sbuildplugin/target`.
+
