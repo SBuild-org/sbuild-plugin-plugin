@@ -34,7 +34,7 @@ import de.tototec.sbuild._
 @classpath("org.sbuild.plugins.sbuildplugin.jar")
 class SBuild(implicit _project: Project) {
 
-  Plugin[org.sbuild.plugins.sbuild.plugin.SBuildPlugin] configure { c =>
+  Plugin[org.sbuild.plugins.sbuildplugin.SBuildPlugin] configure { c =>
     // the version of SBuild this plugin is compatible to
     c.sbuildVersion = "0.7.0"
     
@@ -59,7 +59,7 @@ compile
 jar
 ----
 
-To build to plugin use the `jar` target, which is an alias to the output jar (`target/org.sbuild.plugins.example-0.1.0.jar`).
+To build the plugin use the `jar` target, which is an alias to the output jar (`target/org.sbuild.plugins.example-0.1.0.jar`).
 
 == Future development
 
