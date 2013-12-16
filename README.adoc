@@ -49,7 +49,7 @@ class SBuild(implicit _project: Project) {
 }
 ----
 
-Thats all to compile and package a plugin which has no additional dependencies.
+That's all to compile and package a plugin which has no additional dependencies.
 
 ----
 bash$ sbuild -l
