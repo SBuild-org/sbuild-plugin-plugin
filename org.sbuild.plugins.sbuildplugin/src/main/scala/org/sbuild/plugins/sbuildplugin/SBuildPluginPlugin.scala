@@ -33,6 +33,8 @@ class SBuildPluginPlugin(implicit project: Project) extends Plugin[SBuildPlugin]
         }
         val jar = Path("target") / s"$packageName-${plugin.pluginVersion}.jar"
 
+        ExportDependencies("eclipse.classpath", compileCp)
+        
         Target("phony:clean").evictCache exec {
           Path("target").deleteRecursive
         }
