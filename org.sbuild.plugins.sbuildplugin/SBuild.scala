@@ -7,7 +7,7 @@ import de.tototec.sbuild.ant.tasks._
 class SBuild(implicit _project: Project) {
 
   val namespace = "org.sbuild.plugins.sbuildplugin"
-  val version = "0.0.9000"
+  val version = "0.1.0"
 
   val sbuildVersion = "0.7.0"
   val scalaVersion = "2.10.3"
