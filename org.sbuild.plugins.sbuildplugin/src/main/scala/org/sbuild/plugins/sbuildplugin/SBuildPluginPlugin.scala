@@ -7,13 +7,13 @@ import de.tototec.sbuild.ant.tasks.AntJar
 class SBuildPluginPlugin(implicit project: Project) extends Plugin[SBuildPlugin] {
   override def create(name: String): SBuildPlugin = new SBuildPlugin(name)
   override def applyToProject(instances: Seq[(String, SBuildPlugin)]): Unit =
-    if (instances.size > 1) throw new ProjectConfigurationException(s"Currently only on configured plugin instance for plugin ${classOf[SBuildPlugin].getName} supported.")
+    if (instances.size > 1) throw new ProjectConfigurationException(s"Currently only one configured plugin instance for plugin ${classOf[SBuildPlugin].getName} supported.")
     else instances foreach {
       case (name, plugin) =>
         // Some checks
-        if (plugin.pluginClass == null) throw new ProjectConfigurationException(s"The 'pluginClass' configuration parameter was not set for plugin ${classOf[SBuildPlugin].getName}.")
-        if (plugin.pluginFactoryClass == null) throw new ProjectConfigurationException(s"The 'pluginFactoryClass' configuration parameter was not set for plugin ${classOf[SBuildPlugin].getName}.")
-        if (plugin.sbuildVersion == null) throw new ProjectConfigurationException(s"The 'pluginVersion' configuration parameter was not set for plugin ${classOf[SBuildPlugin].getName}.")
+        if (plugin.pluginClass == null) throw new ProjectConfigurationException(s"The 'pluginClass' property was not set for plugin ${classOf[SBuildPlugin].getName}.")
+        if (plugin.pluginFactoryClass == null) throw new ProjectConfigurationException(s"The 'pluginFactoryClass' property was not set for plugin ${classOf[SBuildPlugin].getName}.")
+        if (plugin.sbuildVersion == null) throw new ProjectConfigurationException(s"The 'pluginVersion' property was not set for plugin ${classOf[SBuildPlugin].getName}.")
 
         import de.tototec.sbuild._
 
