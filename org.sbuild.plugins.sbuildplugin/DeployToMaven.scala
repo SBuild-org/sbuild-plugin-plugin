@@ -21,6 +21,7 @@ class SBuild(implicit _project: Project) {
     val scm = "https://github.com/SBuild-org/sbuild-plugin-plugin"
     p.scm = Option(Scm(url = scm, connection = scm))
     p.developers = Seq(Developer(id = "TobiasRoeser", name = "Tobias Roeser", email = "le.petit.fou@web.de"))
+    p.licenses = Seq(License.Apache20)
     p.gpg = true
 
     p.files = Map(
