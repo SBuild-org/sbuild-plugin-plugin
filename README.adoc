@@ -2,9 +2,15 @@
 
 This SBuild plugin provides a Plugin to build SBuild Plugins.
 
-== Installation
+== Releases
 
-There is currently no release of this plugin. You need to build it by yourself.
+=== 0.1.0
+
+In the near future, it will be available from Maven Central. Until then, you have to build it yourself.
+
+Simple include the jar (from Maven Central) and add it to the project classpath.
+
+`@classpath("mvn:org.sbuild:org.sbuild.plugin.sbuildplugin:0.1.0")`
 
 == Building from Source
 
@@ -31,7 +37,7 @@ To build an imaginary `ExamplePlugin` in package `org.sbuild.plugins.example` in
 import de.tototec.sbuild._
 
 @version("0.7.0")
-@classpath("org.sbuild.plugins.sbuildplugin.jar")
+@classpath("mvn:org.sbuild:org.sbuild.plugins.sbuildplugin:0.1.0")
 class SBuild(implicit _project: Project) {
 
   Plugin[org.sbuild.plugins.sbuildplugin.SBuildPlugin] configure { c =>
