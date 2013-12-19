@@ -1,6 +1,6 @@
 = SBuild Adept Plugin
 
-This SBuild plugin provides a Plugin to build SBuild Plugins.
+This SBuild plugin provides a Plugin to build http://sbuild.tototec.de[SBuild] Plugins.
 
 == Releases
 
@@ -26,7 +26,7 @@ You will find the built jar in the directory `org.sbuild.plugins.sbuildplugin/ta
 
 == Configuration
 
-All configurable properties are documented via ScalaDoc. See file SBuildPlugin.
+All configurable properties are documented via ScalaDoc in the configuration class link:org.sbuild.plugins.sbuildplugin/src/main/scala/org/sbuild/plugins/sbuildplugin/SBuildPlugin.scala[`SBuildPlugin`].
 
 == Usage Example
 
