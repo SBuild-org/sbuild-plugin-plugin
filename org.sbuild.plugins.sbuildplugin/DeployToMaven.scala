@@ -16,6 +16,8 @@ class SBuild(implicit _project: Project) {
     p.groupId = "org.sbuild"
     p.artifactId = namespace
     p.version = version
+    p.artifactName = Some("SBuild SBuild Plugin")
+    p.description = Some("An SBuild Plugin to easily create SBuild plugins.")
 
     p.repository = Repository.SonatypeOss
     val scm = "https://github.com/SBuild-org/sbuild-plugin-plugin"
@@ -23,6 +25,8 @@ class SBuild(implicit _project: Project) {
     p.developers = Seq(Developer(id = "TobiasRoeser", name = "Tobias Roeser", email = "le.petit.fou@web.de"))
     p.licenses = Seq(License.Apache20)
     p.gpg = true
+    p.licenses = Seq(License.Apache20)
+    p.url = Some("https://github.com/SBuild-org/sbuild-plugin-plugin")
 
     p.files = Map(
       "jar" -> s"target/${namespace}-${version}.jar",
