@@ -6,11 +6,18 @@ import de.tototec.sbuild.TargetRefs
 object VersionedArtifacts {
 
   private[this] val baseUrl = "http://sbuild.tototec.de/sbuild/attachments/download/"
-  private[this] val fileParts = Map("0.7.0" -> Seq(
-    "83/de.tototec.sbuild-0.7.0.jar",
-    "85/de.tototec.sbuild.addons-0.7.0.jar",
-    "86/de.tototec.sbuild.ant-0.7.0.jar"
-  ))
+  private[this] val fileParts = Map(
+    "0.7.0" -> Seq(
+      "83/de.tototec.sbuild-0.7.0.jar",
+      "85/de.tototec.sbuild.addons-0.7.0.jar",
+      "86/de.tototec.sbuild.ant-0.7.0.jar"
+    ),
+    "0.7.1" -> Seq(
+      "88/de.tototec.sbuild-0.7.1.jar",
+      "90/de.tototec.sbuild.addons-0.7.1.jar",
+      "91/de.tototec.sbuild.ant-0.7.1.jar"
+    )
+  )
 
   def sbuildClasspath(sbuildVersion: String): Seq[String] = fileParts.get(sbuildVersion) match {
     case Some(files) => files.map(baseUrl + _)

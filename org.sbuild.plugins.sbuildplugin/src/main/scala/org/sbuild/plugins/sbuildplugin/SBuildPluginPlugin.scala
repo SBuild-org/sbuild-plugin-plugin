@@ -5,16 +5,20 @@ import de.tototec.sbuild.ant.AntFileSet
 import de.tototec.sbuild.ant.tasks.AntJar
 
 class SBuildPluginPlugin(implicit project: Project) extends Plugin[SBuildPlugin] {
-  override def create(name: String): SBuildPlugin = new SBuildPlugin(name)
+  override def create(name: String): SBuildPlugin = new SBuildPlugin()
   override def applyToProject(instances: Seq[(String, SBuildPlugin)]): Unit =
     if (instances.size > 1) throw new ProjectConfigurationException(s"Currently only one configured plugin instance for plugin ${classOf[SBuildPlugin].getName} supported.")
     else instances foreach {
       case (name, plugin) =>
         // Some checks
         if (plugin.pluginClass == null) throw new ProjectConfigurationException(s"The 'pluginClass' property was not set for plugin ${classOf[SBuildPlugin].getName}.")
-        if (plugin.pluginFactoryClass == null) throw new ProjectConfigurationException(s"The 'pluginFactoryClass' property was not set for plugin ${classOf[SBuildPlugin].getName}.")
-        if (plugin.sbuildVersion == null) throw new ProjectConfigurationException(s"The 'pluginVersion' property was not set for plugin ${classOf[SBuildPlugin].getName}.")
+        if (plugin.sbuildVersion == null) throw new ProjectConfigurationException(s"The 'sbuildVersion' property was not set for plugin ${classOf[SBuildPlugin].getName}.")
 
+        val pluginFactoryClass = plugin.pluginFactoryClass match {
+          case Some(x) => x
+          case None => plugin.pluginClass + "Plugin"
+        }
+        
         import de.tototec.sbuild._
 
         val compilerCp = VersionedArtifacts.scalaCompilerClasspath(plugin.sbuildVersion).map(TargetRef(_))

@@ -2,14 +2,14 @@ import de.tototec.sbuild._
 import de.tototec.sbuild.ant._
 import de.tototec.sbuild.ant.tasks._
 
-@version("0.7.0")
+@version("0.7.1")
 @classpath("mvn:org.apache.ant:ant:1.8.4")
 class SBuild(implicit _project: Project) {
 
   val namespace = "org.sbuild.plugins.sbuildplugin"
   val version = "0.1.0.9000"
 
-  val sbuildVersion = "0.7.0"
+  val sbuildVersion = "0.7.1"
   val scalaVersion = "2.10.3"
   val jar = s"target/${namespace}-${version}.jar"
   val sourcesZip = s"target/${namespace}-${version}-sources.jar"
@@ -18,9 +18,9 @@ class SBuild(implicit _project: Project) {
     s"mvn:org.scala-lang:scala-library:$scalaVersion" ~
     s"mvn:org.scala-lang:scala-reflect:$scalaVersion"
 
-  val sbuildCore = s"http://sbuild.tototec.de/sbuild/attachments/download/83/de.tototec.sbuild-$sbuildVersion.jar"
-  val sbuildAddons = s"http://sbuild.tototec.de/sbuild/attachments/download/85/de.tototec.sbuild.addons-$sbuildVersion.jar"
-  val sbuildAnt = s"http://sbuild.tototec.de/sbuild/attachments/download/86/de.tototec.sbuild.ant-$sbuildVersion.jar"
+  val sbuildCore = s"http://sbuild.tototec.de/sbuild/attachments/download/88/de.tototec.sbuild-$sbuildVersion.jar"
+  val sbuildAddons = s"http://sbuild.tototec.de/sbuild/attachments/download/90/de.tototec.sbuild.addons-$sbuildVersion.jar"
+  val sbuildAnt = s"http://sbuild.tototec.de/sbuild/attachments/download/91/de.tototec.sbuild.ant-$sbuildVersion.jar"
 
   val pluginCp = Seq("mvn:org.apache.ant:ant:1.8.4")
 
@@ -77,7 +77,8 @@ class SBuild(implicit _project: Project) {
       manifestEntries = Map(
         "SBuild-ExportPackage" -> s"$namespace,org.apache.tools.ant.*",
         "SBuild-Plugin" -> s"""${namespace}.SBuildPlugin=${namespace}.SBuildPluginPlugin;version="${version}"""",
-        "SBuild-Classpath" -> pluginCp.map("raw:" + _).mkString(",")
+        "SBuild-Classpath" -> pluginCp.map("raw:" + _).mkString(","),
+        "SBuild-Version" -> "0.7.1"
       )
     )
   }
