@@ -65,7 +65,7 @@ class SBuildPluginPlugin(implicit project: Project) extends Plugin[SBuildPlugin]
             baseDir = classesDir,
             fileSets = if (resources.files.isEmpty) Seq() else Seq(AntFileSet(dir = Path("src/main/resources"))),
             manifestEntries = Map(
-              Constants.SBuildPlugin -> s"""${plugin.pluginClass}=${plugin.pluginFactoryClass};version="${plugin.pluginVersion}"""",
+              Constants.SBuildPlugin -> s"""${plugin.pluginClass}=${pluginFactoryClass};version="${plugin.pluginVersion}"""",
               "SBuild-Version" -> plugin.sbuildVersion,
               Constants.SBuildPluginExportPackage -> (plugin.exportedPackages match {
                 case Some(p) => p.mkString(",")
