@@ -75,7 +75,7 @@ The SBuild plugin ecosystem just was born. If there are in the near future stabl
 
 === SBuild Plugin Plugin 0.2.1 - 2013-12-21
 
-* Fixed a bug resulting in an invalid SBuild-Plugin entry in the manifest.
+* Fixed a bug resulting in an invalid `SBuild-Plugin` entry in the manifest.
 
 === SBuild Plugin Plugin 0.2.0 - 2013-12-21
 
