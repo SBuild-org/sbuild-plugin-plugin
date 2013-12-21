@@ -2,27 +2,16 @@
 
 This SBuild plugin provides a Plugin to build http://sbuild.tototec.de[SBuild] Plugins.
 
-== Releases
+== Binary releases
 
-=== 0.1.0
+The SBuild Plugin Plugin is available from Maven Central Repository under groupId `org.sbuild` and teh artifactId `org.sbuild.plugins.sbuildplugin`.
 
-In the near future, it will be available from Maven Central. Until then, you have to build it yourself.
+To use it in SBuild 0.7.1 or above, simply add it to the project classpath.
 
-Simple include the jar (from Maven Central) and add it to the project classpath.
-
-`@classpath("mvn:org.sbuild:org.sbuild.plugin.sbuildplugin:0.1.0")`
-
-== Building from Source
-
-You need a recent version of SBuild.
-
+[source,scala]
 ----
-git clone https://github.com/SBuild-org/sbuild-sbuild-plugin.git
-cd sbuild-sbuild-plugin/org.sbuild.plugins.sbuildplugin
-sbuild all
+@classpath("mvn:org.sbuild:org.sbuild.plugin.sbuildplugin:0.2.0")
 ----
-
-You will find the built jar in the directory `org.sbuild.plugins.sbuildplugin/target`.
 
 == Configuration
 
@@ -66,6 +55,31 @@ jar
 
 To build the plugin use the `jar` target, which is an alias to the output jar (`target/org.sbuild.plugins.example-0.1.0.jar`).
 
+== Building from Source
+
+You need a recent version of SBuild.
+
+----
+git clone https://github.com/SBuild-org/sbuild-sbuild-plugin.git
+cd sbuild-sbuild-plugin/org.sbuild.plugins.sbuildplugin
+sbuild all
+----
+
+You will find the built jar in the directory `org.sbuild.plugins.sbuildplugin/target`.
+
+
 == Future development
 
 The SBuild plugin ecosystem just was born. If there are in the near future stable plugin for tasks like compiling, packaging, testing, etc, this plugin will start to use these instead of defining all these task on its own.
+
+
+== Changelog
+
+=== SBuild Plugin Plugin 0.2.0 - 2013-12-21
+
+* This version requires at least SBuild 0.7.1!
+* Changed to immutable config class `SBuildPlugin`
+
+=== SBuild Plugin Plugin 0.1.0 - 2013-12-18
+
+* Initial Release, compatible to SBuild 0.7.0
