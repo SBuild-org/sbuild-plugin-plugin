@@ -10,7 +10,7 @@ To use it in SBuild 0.7.1 or above, simply add it to the project classpath.
 
 [source,scala]
 ----
-@classpath("mvn:org.sbuild:org.sbuild.plugin.sbuildplugin:0.2.0")
+@classpath("mvn:org.sbuild:org.sbuild.plugin.sbuildplugin:0.2.1")
 ----
 
 == Configuration
@@ -26,7 +26,7 @@ To build an imaginary `ExamplePlugin` in package `org.sbuild.plugins.example` in
 import de.tototec.sbuild._
 
 @version("0.7.1")
-@classpath("mvn:org.sbuild:org.sbuild.plugins.sbuildplugin:0.2.0")
+@classpath("mvn:org.sbuild:org.sbuild.plugins.sbuildplugin:0.2.1")
 class SBuild(implicit _project: Project) {
 
   Plugin[org.sbuild.plugins.sbuildplugin.SBuildPlugin] configure { _.copy(
@@ -36,8 +36,6 @@ class SBuild(implicit _project: Project) {
     c.pluginClass = "org.sbuild.plugins.example.Example",
     // the version of this plugin
     c.pluginVersion = "0.1.0",
-    // the plugin factory class, which extends trait de.tototec.sbuild.Plugin
-    c.pluginFactoryClass = "org.sbuild.plugins.example.ExamplePlugin",
   )}
 
 }
@@ -74,6 +72,10 @@ The SBuild plugin ecosystem just was born. If there are in the near future stabl
 
 
 == Changelog
+
+=== SBuild Plugin Plugin 0.2.1 - 2013-12-21
+
+* Fixed a bug resulting in an invalid SBuild-Plugin entry in the manifest.
 
 === SBuild Plugin Plugin 0.2.0 - 2013-12-21
 
