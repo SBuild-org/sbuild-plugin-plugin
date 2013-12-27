@@ -18,14 +18,16 @@ class SBuildPluginPlugin(implicit project: Project) extends Plugin[SBuildPlugin]
           case Some(x) => x
           case None => plugin.pluginClass + "Plugin"
         }
-        
+
         import de.tototec.sbuild._
 
         val compilerCp = VersionedArtifacts.scalaCompilerClasspath(plugin.sbuildVersion).map(TargetRef(_))
+
         val compileCp =
           VersionedArtifacts.scalaClasspath(plugin.sbuildVersion).map(TargetRef(_)) ~
             VersionedArtifacts.sbuildClasspath(plugin.sbuildVersion).map(TargetRef(_)) ~
             plugin.deps.map { case d if d.startsWith("raw:") => d.substring(4) case d => d }.map(TargetRef(_))
+
         val sources = "scan:src/main/scala;regex=.*\\.scala"
         val resourcesDir = "src/main/resources"
         val resources = s"scan:$resourcesDir"
@@ -37,28 +39,27 @@ class SBuildPluginPlugin(implicit project: Project) extends Plugin[SBuildPlugin]
         }
         val jar = Path("target") / s"$packageName-${plugin.pluginVersion}.jar"
 
-        ExportDependencies("eclipse.classpath", compileCp)
-        
-        Target("phony:clean").evictCache exec {
+        Target("phony:" + (if (name == "") "clean" else s"clean-$name")).evictCache exec {
           Path("target").deleteRecursive
         }
 
         // TODO: Compile target
-        val compileT = Target("phony:compile").cacheable dependsOn compilerCp ~ compileCp ~~ sources exec { ctx: TargetContext =>
-          addons.scala.Scalac(
-            compilerClasspath = compilerCp.files,
-            classpath = compileCp.files,
-            destDir = classesDir,
-            sources = sources.files,
-            deprecation = true,
-            debugInfo = "vars",
-            fork = true
-          )
-          classesDir.listFilesRecursive.map(f => ctx attachFile f)
-        }
+        val compileT = Target("phony:" + (if (name == "") "compile" else s"compile-$name")).cacheable dependsOn
+          compilerCp ~ compileCp ~~ sources exec { ctx: TargetContext =>
+            addons.scala.Scalac(
+              compilerClasspath = compilerCp.files,
+              classpath = compileCp.files,
+              destDir = classesDir,
+              sources = sources.files,
+              deprecation = true,
+              debugInfo = "vars",
+              fork = true
+            )
+            classesDir.listFilesRecursive.map(f => ctx attachFile f)
+          }
 
         // TODO: detect the plugin class by analyzing the factory if not given
-        
+
         val jarT = Target(jar) dependsOn compileT ~ resources exec { ctx: TargetContext =>
           AntJar(
             destFile = ctx.targetFile.get,
@@ -76,7 +77,45 @@ class SBuildPluginPlugin(implicit project: Project) extends Plugin[SBuildPlugin]
           )
         }
 
-        Target("phony:jar") dependsOn jarT
+        Target("phony:" + (if (name == "") "jar" else s"jar-$name")) dependsOn jarT
+
+        val testCp = compileCp ~
+          plugin.testDeps.map(TargetRef(_)) ~
+          jarT 
+
+        val testSourceDir = "src/test/scala"
+        val testSources = s"scan:$testSourceDir;regex=.*\\.scala"
+        val testClassesDir = Path("target/test-classes")
+
+        val scalatestCp = VersionedArtifacts.scalaTestClasspath(plugin.sbuildVersion).map(TargetRef(_))
+
+        // TODO: Compile target
+        val testCompileT = Target("phony:" + (if (name == "") "test-compile" else s"test-compile-$name")).cacheable dependsOn
+          compilerCp ~ testCp ~ scalatestCp ~~ testSources exec { ctx: TargetContext =>
+            addons.scala.Scalac(
+              compilerClasspath = compilerCp.files,
+              classpath = testCp.files ++ scalatestCp.files,
+              destDir = testClassesDir,
+              sources = testSources.files,
+              deprecation = true,
+              debugInfo = "vars",
+              fork = true
+            )
+            classesDir.listFilesRecursive.map(f => ctx attachFile f)
+          }
+
+        Target("phony:" + (if (name == "") "test" else s"test-$name")).cacheable dependsOn
+          testCompileT ~ testCp ~ scalatestCp ~ s"scan:$testClassesDir" exec {
+            addons.scalatest.ScalaTest(
+              classpath = testCp.files ++ scalatestCp.files,
+              runPath = Seq(testClassesDir.getPath),
+              xmlOutputDir = Path("target/test-output"),
+              standardOutputSettings = "G"
+            )
+
+          }
+
+        ExportDependencies("eclipse.classpath", testCp ~ scalatestCp)
 
       // TODO: source jar target
 

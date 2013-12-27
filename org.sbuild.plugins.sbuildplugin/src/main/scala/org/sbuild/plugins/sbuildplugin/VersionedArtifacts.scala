@@ -35,4 +35,8 @@ object VersionedArtifacts {
     "mvn:org.scala-lang:scala-compiler:2.10.3"
   )
 
+  def scalaTestClasspath(sbuildVersion: String): Seq[String] = Seq(
+    "mvn:org.scalatest:scalatest_2.10:2.0"    
+  )
+
 }

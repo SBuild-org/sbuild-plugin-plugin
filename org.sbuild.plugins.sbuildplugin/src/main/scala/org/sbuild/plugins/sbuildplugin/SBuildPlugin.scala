@@ -50,6 +50,7 @@ case class SBuildPlugin(
   pluginVersion: String = "0.0.0",
   sbuildVersion: String = null,
   deps: Seq[String] = Seq(),
+  testDeps: Seq[String] = Seq(),
   exportedPackages: Option[Seq[String]] = None)
 
   // var testDeps: Option[TargetRefs] = None
