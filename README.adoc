@@ -73,6 +73,8 @@ The SBuild plugin ecosystem just was born. If there are in the near future stabl
 
 == Changelog
 
+* Compile and run tests with ScalaTest.
+
 === SBuild Plugin Plugin 0.2.1 - 2013-12-21
 
 * Fixed a bug resulting in an invalid `SBuild-Plugin` entry in the manifest.
