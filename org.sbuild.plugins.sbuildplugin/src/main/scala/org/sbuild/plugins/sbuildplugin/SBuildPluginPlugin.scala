@@ -73,7 +73,7 @@ class SBuildPluginPlugin(implicit project: Project) extends Plugin[SBuildPlugin]
                 case None => pluginPackage
               }),
               Constants.SBuildPluginClasspath -> plugin.deps.mkString(",")
-            )
+            ) ++ plugin.manifest
           )
         }
 

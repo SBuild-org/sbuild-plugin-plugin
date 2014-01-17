@@ -6,7 +6,7 @@ import de.tototec.sbuild.Project
 /**
  * Plugin instance class used for configuration of the SBuild Plugin Plugin.
  *
- * @param packageName The base name of the build JAR. 
+ * @param packageName The base name of the built JAR.
  *   If `[[scala.None$]]`, it will be derived from the `[[SBuildPlugin#pluginClass]]` property.
  *
  * @param packageClass The fully qualified plugin instance class name.
@@ -42,6 +42,9 @@ import de.tototec.sbuild.Project
  *   you have to add the contained packages to this list.
  *
  *   This property contributes to the manifest entry `SBuild-ExportPackage`.
+ *
+ *   @param manifest Additional manifest entries added to the plugin JAR file.
+ *
  */
 case class SBuildPlugin(
   packageName: Option[String] = None,
@@ -51,6 +54,7 @@ case class SBuildPlugin(
   sbuildVersion: String = null,
   deps: Seq[String] = Seq(),
   testDeps: Seq[String] = Seq(),
-  exportedPackages: Option[Seq[String]] = None)
+  exportedPackages: Option[Seq[String]] = None,
+  manifest: Map[String, String] = Map())
 
   // var testDeps: Option[TargetRefs] = None
