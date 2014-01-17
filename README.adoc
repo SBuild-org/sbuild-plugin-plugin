@@ -74,6 +74,7 @@ The SBuild plugin ecosystem just was born. If there are in the near future stabl
 == Changelog
 
 * Compile and run tests with ScalaTest.
+* New `manifest` parameter to allow additional entries in the final plugin JAR manifest.
 
 === SBuild Plugin Plugin 0.2.1 - 2013-12-21
 
