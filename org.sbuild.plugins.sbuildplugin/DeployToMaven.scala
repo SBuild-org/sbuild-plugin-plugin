@@ -8,7 +8,7 @@ import de.tototec.sbuild._
 class SBuild(implicit _project: Project) {
 
   val namespace = "org.sbuild.plugins.sbuildplugin"
-  val version = "0.2.1"
+  val version = "0.2.2"
   val url = "https://github.com/SBuild-org/sbuild-plugin-plugin"
 
   import org.sbuild.plugins.mavendeploy._
