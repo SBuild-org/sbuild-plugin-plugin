@@ -1,19 +1,16 @@
 = SBuild Adept Plugin
-:pluginversion: 0.2.1
-:sbuildversion: 0.7.1
 
 This SBuild plugin provides a Plugin to build http://sbuild.tototec.de[SBuild] Plugins.
 
 == Binary releases
 
-The SBuild Plugin Plugin is available from Maven Central Repository under groupId `org.sbuild` and teh artifactId `org.sbuild.plugins.sbuildplugin`.
+The SBuild Plugin Plugin is available from Maven Central Repository under groupId `org.sbuild` and the artifactId `org.sbuild.plugins.sbuildplugin`.
 
-To use it in SBuild {sbuildversion} or above, simply add it to the project classpath.
+To use it in SBuild 0.7,1 or newer, simply add it to the project classpath.
 
 [source,scala]
-[subs="attributes"]
 ----
-@classpath("mvn:org.sbuild:org.sbuild.plugin.sbuildplugin:{pluginversion}")
+@classpath("mvn:org.sbuild:org.sbuild.plugin.sbuildplugin:0.2.2")
 ----
 
 == Configuration
@@ -25,17 +22,16 @@ All configurable properties are documented via ScalaDoc in the configuration cla
 To build an imaginary `ExamplePlugin` in package `org.sbuild.plugins.example` in version `0.1.0` you can use the following SBuild buildfile. Scala source files are assumed to be in `src/main/scala` directory.
 
 [source,scala]
-[subs="attributes"]
 ----
 import de.tototec.sbuild._
 
-@version("{sbuildversion}")
-@classpath("mvn:org.sbuild:org.sbuild.plugins.sbuildplugin:{pluginversion}")
+@version("0.7.1")
+@classpath("mvn:org.sbuild:org.sbuild.plugins.sbuildplugin:0.2.2")
 class SBuild(implicit _project: Project) {
 
   Plugin[org.sbuild.plugins.sbuildplugin.SBuildPlugin] configure { _.copy(
     // the version of SBuild this plugin is compatible to
-    sbuildVersion = "{sbuildversion}",
+    sbuildVersion = "0.7.1",
     // the plugin API
     c.pluginClass = "org.sbuild.plugins.example.Example",
     // the version of this plugin
