@@ -1,4 +1,4 @@
-= SBuild Adept Plugin
+= SBuild Plugin Plugin
 
 This SBuild plugin provides a Plugin to build http://sbuild.tototec.de[SBuild] Plugins.
 
