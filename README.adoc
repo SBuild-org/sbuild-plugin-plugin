@@ -1,5 +1,5 @@
 = SBuild Plugin Plugin
-:pluginversion: 0.2.2.9000
+:pluginversion: 0.3.0
 :sbuildversion: 0.7.1
 
 This SBuild plugin provides a Plugin to build http://sbuild.org[SBuild] Plugins.
@@ -78,7 +78,7 @@ The SBuild plugin ecosystem just was born. If there are in the near future stabl
 
 == Changelog
 
-=== SBuild Plugin Plugin 0.3.0 - _not released yet_
+=== SBuild Plugin Plugin 0.3.0 - 2014-02-18
 
 * *API Change:* Rework configuration of SBuild version used for the plugin build (and as lowest compatibility margin). By this change, it is also possible to build a plugin against an unreleased SBuild version.
 

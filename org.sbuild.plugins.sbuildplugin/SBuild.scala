@@ -10,7 +10,7 @@ import de.tototec.sbuild.ant.tasks._
 class SBuild(implicit _project: Project) {
 
   val namespace = "org.sbuild.plugins.sbuildplugin"
-  val version = "0.2.2.9000"
+  val version = "0.3.0"
   val url = "https://github.com/SBuild-org/sbuild-plugin-plugin"
 
   val sbuildVersion = "0.7.1"
