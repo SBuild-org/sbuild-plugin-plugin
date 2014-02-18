@@ -19,13 +19,11 @@ class SBuildPluginPlugin(implicit project: Project) extends Plugin[SBuildPlugin]
           case None => plugin.pluginClass + "Plugin"
         }
 
-        import de.tototec.sbuild._
-
-        val compilerCp = VersionedArtifacts.scalaCompilerClasspath(plugin.sbuildVersion).map(TargetRef(_))
+        val compilerCp = plugin.sbuildVersion.scalaCompilerClasspath.map(TargetRef(_))
 
         val compileCp =
-          VersionedArtifacts.scalaClasspath(plugin.sbuildVersion).map(TargetRef(_)) ~
-            VersionedArtifacts.sbuildClasspath(plugin.sbuildVersion).map(TargetRef(_)) ~
+          plugin.sbuildVersion.scalaClasspath.map(TargetRef(_)) ~
+            plugin.sbuildVersion.sbuildClasspath.map(TargetRef(_)) ~
             plugin.deps.map { case d if d.startsWith("raw:") => d.substring(4) case d => d }.map(TargetRef(_))
 
         val sources = "scan:src/main/scala;regex=.*\\.scala"
@@ -67,7 +65,7 @@ class SBuildPluginPlugin(implicit project: Project) extends Plugin[SBuildPlugin]
             fileSets = if (resources.files.isEmpty) Seq() else Seq(AntFileSet(dir = Path("src/main/resources"))),
             manifestEntries = Map(
               Constants.SBuildPlugin -> s"""${plugin.pluginClass}=${pluginFactoryClass};version="${plugin.pluginVersion}"""",
-              "SBuild-Version" -> plugin.sbuildVersion,
+              "SBuild-Version" -> plugin.sbuildVersion.version,
               Constants.SBuildPluginExportPackage -> (plugin.exportedPackages match {
                 case Some(p) => p.mkString(",")
                 case None => pluginPackage
@@ -81,13 +79,13 @@ class SBuildPluginPlugin(implicit project: Project) extends Plugin[SBuildPlugin]
 
         val testCp = compileCp ~
           plugin.testDeps.map(TargetRef(_)) ~
-          jarT 
+          jarT
 
         val testSourceDir = "src/test/scala"
         val testSources = s"scan:$testSourceDir;regex=.*\\.scala"
         val testClassesDir = Path("target/test-classes")
 
-        val scalatestCp = VersionedArtifacts.scalaTestClasspath(plugin.sbuildVersion).map(TargetRef(_))
+        val scalatestCp = plugin.sbuildVersion.scalaTestClasspath.map(TargetRef(_))
 
         // TODO: Compile target
         val testCompileT = Target("phony:" + (if (name == "") "test-compile" else s"test-compile-$name")).cacheable dependsOn

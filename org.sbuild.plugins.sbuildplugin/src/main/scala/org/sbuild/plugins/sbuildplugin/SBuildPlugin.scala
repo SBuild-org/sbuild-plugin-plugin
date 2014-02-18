@@ -51,7 +51,7 @@ case class SBuildPlugin(
   pluginClass: String = null,
   pluginFactoryClass: Option[String] = None,
   pluginVersion: String = "0.0.0",
-  sbuildVersion: String = null,
+  sbuildVersion: SBuildVersion = null,
   deps: Seq[String] = Seq(),
   testDeps: Seq[String] = Seq(),
   exportedPackages: Option[Seq[String]] = None,
