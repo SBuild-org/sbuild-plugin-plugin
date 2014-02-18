@@ -19,11 +19,11 @@ class SBuildPluginPlugin(implicit project: Project) extends Plugin[SBuildPlugin]
           case None => plugin.pluginClass + "Plugin"
         }
 
-        val compilerCp = plugin.sbuildVersion.scalaCompilerClasspath.map(TargetRef(_))
+        val compilerCp = plugin.sbuildVersion.scalaCompilerClasspath
 
         val compileCp =
-          plugin.sbuildVersion.scalaClasspath.map(TargetRef(_)) ~
-            plugin.sbuildVersion.sbuildClasspath.map(TargetRef(_)) ~
+          plugin.sbuildVersion.scalaClasspath ~
+            plugin.sbuildVersion.sbuildClasspath ~
             plugin.deps.map { case d if d.startsWith("raw:") => d.substring(4) case d => d }.map(TargetRef(_))
 
         val sources = "scan:src/main/scala;regex=.*\\.scala"
@@ -85,7 +85,7 @@ class SBuildPluginPlugin(implicit project: Project) extends Plugin[SBuildPlugin]
         val testSources = s"scan:$testSourceDir;regex=.*\\.scala"
         val testClassesDir = Path("target/test-classes")
 
-        val scalatestCp = plugin.sbuildVersion.scalaTestClasspath.map(TargetRef(_))
+        val scalatestCp = plugin.sbuildVersion.scalaTestClasspath
 
         // TODO: Compile target
         val testCompileT = Target("phony:" + (if (name == "") "test-compile" else s"test-compile-$name")).cacheable dependsOn
