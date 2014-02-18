@@ -1,6 +1,9 @@
 = SBuild Plugin Plugin
 :pluginversion: 0.3.0
 :sbuildversion: 0.7.1
+:toc:
+:toc-placement: preamble
+:toclevels: 1
 
 This SBuild plugin provides a Plugin to build http://sbuild.org[SBuild] Plugins.
 
