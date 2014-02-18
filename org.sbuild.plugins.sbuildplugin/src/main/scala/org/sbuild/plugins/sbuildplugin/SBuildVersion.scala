@@ -28,10 +28,9 @@ object SBuildVersion {
     override val scalaTestClasspath: TargetRefs = "mvn:org.scalatest:scalatest_2.10:2.0"
   }
 
-  private[this] val baseUrl = "http://sbuild.tototec.de/sbuild/attachments/download"
-
   def v0_7_0(implicit _project: Project) = new SBuildVersion with Scala_2_10_3 with ScalaTest_2_0 {
-    override protected val project = _project
+    private[this] val baseUrl = "http://sbuild.tototec.de/sbuild/attachments/download"
+    override protected def project = _project
     override val version: String = "0.7.0"
     override val sbuildClasspath: TargetRefs =
       s"${baseUrl}/83/de.tototec.sbuild-0.7.0.jar" ~
@@ -40,7 +39,8 @@ object SBuildVersion {
   }
 
   def v0_7_1(implicit _project: Project) = new SBuildVersion with Scala_2_10_3 with ScalaTest_2_0 {
-    override protected val project = _project
+    private[this] val baseUrl = "http://sbuild.tototec.de/sbuild/attachments/download"
+    override protected def project = _project
     override val version: String = "0.7.1"
     override val sbuildClasspath: TargetRefs =
       s"${baseUrl}/88/de.tototec.sbuild-0.7.1.jar" ~
