@@ -47,14 +47,21 @@ import de.tototec.sbuild.Project
  *
  */
 case class SBuildPlugin(
-  packageName: Option[String] = None,
-  pluginClass: String = null,
-  pluginFactoryClass: Option[String] = None,
-  pluginVersion: String = "0.0.0",
-  sbuildVersion: SBuildVersion = null,
-  deps: Seq[String] = Seq(),
-  testDeps: Seq[String] = Seq(),
-  exportedPackages: Option[Seq[String]] = None,
-  manifest: Map[String, String] = Map())
+    packageName: Option[String] = None,
+    pluginClass: String = null,
+    pluginFactoryClass: Option[String] = None,
+    pluginVersion: String = "0.0.0",
+    sbuildVersion: SBuildVersion = null,
+    deps: Seq[String] = Seq(),
+    testDeps: Seq[String] = Seq(),
+    exportedPackages: Option[Seq[String]] = None,
+    manifest: Map[String, String] = Map()) {
+
+  def validationErrors: Seq[String] = Seq(
+    if (pluginClass == null) Seq(s"The 'pluginClass' property was not set for plugin ${classOf[SBuildPlugin].getName}.") else Seq(),
+    if (sbuildVersion == null) Seq(s"The 'sbuildVersion' property was not set for plugin ${classOf[SBuildPlugin].getName}.") else Seq()
+  ).flatten
+
+}
 
   // var testDeps: Option[TargetRefs] = None

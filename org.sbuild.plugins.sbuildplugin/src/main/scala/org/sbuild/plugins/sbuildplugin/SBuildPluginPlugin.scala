@@ -10,9 +10,11 @@ class SBuildPluginPlugin(implicit project: Project) extends Plugin[SBuildPlugin]
     if (instances.size > 1) throw new ProjectConfigurationException(s"Currently only one configured plugin instance for plugin ${classOf[SBuildPlugin].getName} supported.")
     else instances foreach {
       case (name, plugin) =>
-        // Some checks
-        if (plugin.pluginClass == null) throw new ProjectConfigurationException(s"The 'pluginClass' property was not set for plugin ${classOf[SBuildPlugin].getName}.")
-        if (plugin.sbuildVersion == null) throw new ProjectConfigurationException(s"The 'sbuildVersion' property was not set for plugin ${classOf[SBuildPlugin].getName}.")
+        plugin.validationErrors match {
+          case Seq() => // ok
+          case errors => new ProjectConfigurationException(
+            s"The configuration of plugin ${classOf[SBuildPlugin]} with name '${name}' has errors:\n - ${errors.mkString("\n - ")}")
+        }
 
         val pluginFactoryClass = plugin.pluginFactoryClass match {
           case Some(x) => x
