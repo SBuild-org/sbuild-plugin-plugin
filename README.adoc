@@ -39,7 +39,7 @@ class SBuild(implicit _project: Project) {
   import org.sbuild.plugins.sbuildplugin._
   Plugin[SBuildPlugin] configure (_.copy(
     // the version of SBuild this plugin is compatible to
-    sbuildVersion = SBuildVersion._v0_7_1,
+    sbuildVersion = SBuildVersion.v0_7_1,
     // the plugin API
     pluginClass = "org.sbuild.plugins.example.Example",
     // the version of this plugin
