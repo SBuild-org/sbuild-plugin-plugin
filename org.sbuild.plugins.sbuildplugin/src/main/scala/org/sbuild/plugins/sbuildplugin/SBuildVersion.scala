@@ -63,5 +63,5 @@ object SBuildVersion {
     override val scalaTestClasspath: TargetRefs =
       s"mvn:org.scalatest:scalatest_${scalaBinVersion}:2.1.3"
   }
-
+  def v0_8_0_M1(implicit _project: Project) = v0_7_9010
 }
